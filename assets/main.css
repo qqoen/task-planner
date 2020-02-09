@@ -57,3 +57,37 @@ button:hover {
 .modal-footer {
     border-top: 1px solid black;
 }
+
+.info-span {
+    display: inline-block;
+    background-color: blue;
+    opacity: 0.5;
+    color: white;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    border-radius: 45px;
+}
+.info-span:hover {
+    opacity: 1;
+    cursor: pointer;
+}
+
+
+.priority-normal {
+
+}
+.priority-medium {
+    background-color: orange;
+    border-color: orange;
+}
+.priority-high {
+    background-color: red;
+    background-color: red;
+}
+
+.task-selected {
+    opacity: 0.5;
+    border: 2px solid black;
+}
+

@@ -9,7 +9,8 @@
     <link rel="stylesheet" href="./node_modules/@fullcalendar/core/main.min.css">
     <link rel="stylesheet" href="./node_modules/@fullcalendar/daygrid/main.min.css">
     <link rel="stylesheet" href="./node_modules/@fullcalendar/timegrid/main.min.css">
-    <link rel="stylesheet" href="./node_modules/rmodal/dist/rmodal.css" type="text/css" />
+    <link rel="stylesheet" href="./node_modules/rmodal/dist/rmodal.css" />
+    <link rel="stylesheet" href="./node_modules/toastr/build/toastr.min.css">
 
     <!-- Source styles -->
 
@@ -37,10 +38,16 @@
                         <input type="text" placeholder="Title" id="newTaskTitle">
 
                         <select id="newTaskPriority">
-                            <option value="0">Normal</option>
-                            <option value="1">Medium</option>
-                            <option value="2">High</option>
+                            <option value="priority-normal">Normal</option>
+                            <option value="priority-medium">Medium</option>
+                            <option value="priority-high">High</option>
                         </select>
+
+                        <br>
+
+                        <input type="text" placeholder="Recurrence" id="newTaskRecurrence">
+
+                        <span class="info-span" title="Weekday numbers separated by comma">i</span>
                     </div>
 
                     <div class="modal-footer">
