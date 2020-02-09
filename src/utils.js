@@ -24,7 +24,7 @@ export function getTasks() {
     const tasks = JSON.parse(localStorage.getItem(lsKey)) || [];
 
     return tasks.map((task) => {
-        const dow = task.extendedProps.daysOfWeek === '' ? undefined : dow;
+        const dow = task.extendedProps.daysOfWeek === '' ? undefined : task.extendedProps.daysOfWeek;
 
         return Object.assign(task, {
             daysOfWeek: dow,
@@ -65,4 +65,20 @@ export function saveTasks(tasks) {
 
 export function remove(array, value) {
     array.splice(array.indexOf(value), 1);
+}
+
+export class Signal {
+    constructor() {
+        this.handlers = [];
+    }
+
+    next() {
+        this.handlers.forEach((handle) => {
+            handle();
+        });
+    }
+
+    subscribe(handler) {
+        this.handlers.push(handler);
+    }
 }

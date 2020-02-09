@@ -22,42 +22,50 @@
         <div id='calendar'></div>
     </div>
 
+    <section class="statistics">
+        tasks total: <span id="totalAmount"></span>
+    </section>
+
     <!-- Modals -->
 
     <div id="addModal" class="modal">
         <div class="modal-dialog">
             <div class="modal-content">
                 <form class="form-horizontal">
-                    <div class="modal-header">
-                        New Task
-                    </div>
+                    <div class="modal-header"></div>
 
                     <div class="modal-body">
-                        <input type="text" placeholder="YYYY-MM-DD" id="newTaskDate">
+                        <input type="text" placeholder="YYYY-MM-DD" id="newTaskDate" class="modal-control">
 
-                        <input type="text" placeholder="Title" id="newTaskTitle">
+                        <input type="text" placeholder="Title" id="newTaskTitle" class="modal-control">
 
-                        <select id="newTaskPriority">
+                        <select id="newTaskPriority" class="modal-control">
                             <option value="priority-normal">Normal</option>
                             <option value="priority-medium">Medium</option>
                             <option value="priority-high">High</option>
                         </select>
 
-                        <br>
-
-                        <input type="text" placeholder="Recurrence" id="newTaskRecurrence">
+                        <input type="text" placeholder="Recurrence" id="newTaskRecurrence" class="modal-control">
 
                         <span class="info-span" title="Weekday numbers separated by comma">i</span>
                     </div>
 
                     <div class="modal-footer">
-                        <button class="btn btn-primary" type="submit" id="addBtn">
-                            Add
-                        </button>
+                        <div class="flex">
+                            <div class="flex__item">
+                                <button class="btn btn-primary" type="submit" id="addBtn">
+                                    Add
+                                </button>
+                            </div>
 
-                        <button class="btn btn-primary" type="submit" id="closeAddBtn">
-                            Close
-                        </button>
+                            <div class="flex__spacer"></div>
+
+                            <div class="flex__item">
+                                <button class="btn btn-primary" type="submit" id="closeAddBtn">
+                                    Close
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </form>
             </div>

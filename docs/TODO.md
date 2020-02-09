@@ -1,11 +1,13 @@
 Main:
-- edit tasks
-- mark tasks as completed or failed
-- revert changes
+- edit tasks (save changes to calendar)
+- return to current date btn
+- tasks global search
+- tasks amount stat (update on delete)
 
-Additional:
-- update modal form styles
-- css4 variables
-- global task search
-- context menu
+Optional:
 - hot keys
+- context menu
+- icons for export, import
+- multiple tasks selection
+- revert changes
+- deleted/completed tasks folders

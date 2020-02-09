@@ -9,7 +9,7 @@ import interactionPlugin from '@fullcalendar/interaction';
 import toastr from 'toastr';
 import { DateTime } from 'luxon';
 
-import { $, saveTasks, remove, serializeTasks } from './utils';
+import { $, saveTasks, remove, serializeTasks, Signal } from './utils';
 
 
 function onImport(calendar) {
@@ -57,10 +57,12 @@ function onImport(calendar) {
     });
 }
 
+export const selectedTasks = [];
 
-export function initializeCalendar(addModal) {
+export function initializeCalendar() {
     const calendarEl = $('#calendar');
-    const selectedTasks = [];
+    const $add = new Signal();
+    const $edit = new Signal();
 
     const calendar = new Calendar(calendarEl, {
         plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
@@ -69,20 +71,27 @@ export function initializeCalendar(addModal) {
         editable: true,
         scrollTime: '00:00:00',
         header: {
-            left: 'timeGridDay,timeGridWeek,dayGridMonth addBtn deleteBtn editBtn',
+            left: 'timeGridDay,timeGridWeek,dayGridMonth addBtn editBtn deleteBtn',
             center: 'title',
-            right: 'saveBtn exportBtn importBtn prevYear,prev,next,nextYear',
+            right: 'saveBtn prevYear,prev,next,nextYear',
+        },
+        footer: {
+            right: 'exportBtn importBtn',
         },
         customButtons: {
             addBtn: {
                 text: 'new',
                 click: () => {
-                    addModal.open();
+                    $add.next();
                 },
             },
             deleteBtn: {
                 text: 'delete',
                 click: () => {
+                    if (selectedTasks.length === 0) {
+                        toastr.info('No tasks selected');
+                    }
+
                     calendar.getEvents().forEach((event) => {
                         if (selectedTasks.includes(event.title)) {
                             event.remove();
@@ -93,6 +102,7 @@ export function initializeCalendar(addModal) {
             editBtn: {
                 text: 'edit',
                 click: () => {
+                    $edit.next();
                 },
             },
             saveBtn: {
@@ -151,5 +161,5 @@ export function initializeCalendar(addModal) {
 
     calendar.render();
 
-    return calendar;
+    return { calendar, $add, $edit };
 }
