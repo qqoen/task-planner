@@ -1,0 +1,5 @@
+- task priority
+- delete tasks
+- edit tasks
+- save/load tasks (local storage)
+- export/import to file

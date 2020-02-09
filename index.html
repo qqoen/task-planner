@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Task Planner</title>
+
+    <!-- Vendor styles -->
+
+    <link rel="stylesheet" href="./node_modules/@fullcalendar/core/main.min.css">
+    <link rel="stylesheet" href="./node_modules/@fullcalendar/daygrid/main.min.css">
+    <link rel="stylesheet" href="./node_modules/@fullcalendar/timegrid/main.min.css">
+    <link rel="stylesheet" href="./node_modules/rmodal/dist/rmodal.css" type="text/css" />
+
+    <!-- Source styles -->
+
+    <link rel="stylesheet" href="./assets/main.css">
+</head>
+
+<body>
+    <div class="container">
+        <div id='calendar'></div>
+    </div>
+
+    <!-- Modals -->
+
+    <div id="addModal" class="modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form class="form-horizontal">
+                    <div class="modal-header">
+                        New Task
+                    </div>
+
+                    <div class="modal-body">
+                        <input type="text" placeholder="YYYY-MM-DD" id="newTaskDate">
+
+                        <input type="text" placeholder="Title" id="newTaskTitle">
+
+                        <select id="newTaskPriority">
+                            <option value="0">Normal</option>
+                            <option value="1">Medium</option>
+                            <option value="2">High</option>
+                        </select>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" type="submit" id="addBtn">
+                            Add
+                        </button>
+
+                        <button class="btn btn-primary" type="submit" id="closeAddBtn">
+                            Close
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Source scripts entries -->
+
+    <script src="./src/index.js"></script>
+</body>
+</html>
