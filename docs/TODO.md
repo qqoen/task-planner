@@ -1,7 +1,7 @@
 Main:
 - edit tasks
 - mark tasks as completed or failed
-- export/import to file
+- revert changes
 
 Additional:
 - update modal form styles

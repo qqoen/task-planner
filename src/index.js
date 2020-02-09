@@ -13,6 +13,8 @@ function main() {
     const addModal = new RModal(
         $('#addModal'),
         {
+            closeTimeout: 0,
+            focus: false,
             afterOpen: () => {
                 $('#newTaskDate').value = DateTime.local().toISODate();
             },
@@ -33,7 +35,7 @@ function main() {
         const date = $('#newTaskDate').value;
         const title = $('#newTaskTitle').value;
         const priorityClass = $('#newTaskPriority').value;
-        const recurrentDays = $('#newTaskRecurrence').value;
+        const daysOfWeek = $('#newTaskRecurrence').value;
 
         const tasks = calendar.getEvents();
 
@@ -49,11 +51,14 @@ function main() {
             start: date,
             allDay: true,
             classNames: [priorityClass],
-            daysOfWeek: recurrentDays,
+            daysOfWeek: daysOfWeek === '' ? undefined : daysOfWeek,
+            groupId: daysOfWeek === '' ? '' : title,
             extendedProps: {
-                daysOfWeek: recurrentDays,
+                daysOfWeek,
             },
         };
+
+        console.log('opts', opts);
 
         try {
             calendar.addEvent(opts);

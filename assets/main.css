@@ -91,3 +91,11 @@ button:hover {
     border: 2px solid black;
 }
 
+/* Icons */
+
+.fc-icon-calendar {
+    background: url('./icons/save.png');
+    filter: invert(1);
+    background-size: 24px 24px;
+}
+

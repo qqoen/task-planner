@@ -7,8 +7,55 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import toastr from 'toastr';
+import { DateTime } from 'luxon';
 
-import { $, saveTasks, remove } from './utils';
+import { $, saveTasks, remove, serializeTasks } from './utils';
+
+
+function onImport(calendar) {
+    const fileInput = document.createElement('input');
+
+    fileInput.type = 'file';
+
+    document.body.appendChild(fileInput);
+    fileInput.click();
+
+    fileInput.addEventListener('input', (e) => {
+        const file = e.target.files[0];
+        const reader = new FileReader();
+
+        reader.readAsText(file, 'UTF-8');
+
+        reader.onload = (evt) => {
+            try {
+                const tasks = JSON.parse(evt.target.result) || [];
+                const oldTasks = calendar.getEvents();
+
+                // remove current tasks
+                oldTasks.forEach((task) => {
+                    task.remove();
+                });
+
+                // add imported tasks
+                tasks.forEach((task) => {
+                    calendar.addEvent(task);
+                })
+
+                toastr.success('Imported successfully');
+            } catch {
+                toastr.error('Unable to import tasks');
+            }
+        }
+
+        reader.onerror = (evt) => {
+            toastr.error('Error reading file');
+        }
+
+        setTimeout(() => {
+            document.body.removeChild(fileInput);
+        }, 0);
+    });
+}
 
 
 export function initializeCalendar(addModal) {
@@ -24,7 +71,7 @@ export function initializeCalendar(addModal) {
         header: {
             left: 'timeGridDay,timeGridWeek,dayGridMonth addBtn deleteBtn editBtn',
             center: 'title',
-            right: 'saveBtn prevYear,prev,next,nextYear',
+            right: 'saveBtn exportBtn importBtn prevYear,prev,next,nextYear',
         },
         customButtons: {
             addBtn: {
@@ -50,6 +97,7 @@ export function initializeCalendar(addModal) {
             },
             saveBtn: {
                 text: 'save',
+                icon: 'calendar',
                 click: () => {
                     try {
                         saveTasks(calendar.getEvents());
@@ -57,6 +105,33 @@ export function initializeCalendar(addModal) {
                     } catch {
                         toastr.error('Unable to save tasks');
                     }
+                },
+            },
+            exportBtn: {
+                text: 'export',
+                click: () => {
+                    const tasks = calendar.getEvents();
+                    const json = serializeTasks(tasks);
+                    const file = new Blob([json], {type: 'application/json' });
+                    const a = document.createElement('a');
+                    const url = URL.createObjectURL(file);
+
+                    a.href = url;
+                    a.download = 'export.json';
+
+                    document.body.appendChild(a);
+                    a.click();
+
+                    setTimeout(() => {
+                        document.body.removeChild(a);
+                        window.URL.revokeObjectURL(url);
+                    }, 0);
+                },
+            },
+            importBtn: {
+                text: 'import',
+                click: () => {
+                    onImport(calendar);
                 },
             },
         },
