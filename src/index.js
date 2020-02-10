@@ -5,6 +5,8 @@ import toastr from 'toastr';
 import { $, getTasks } from './utils';
 import { initializeCalendar, selectedTasks } from './calendar';
 
+import '../assets/main.styl';
+
 
 toastr.options.positionClass = 'toast-bottom-right';
 
