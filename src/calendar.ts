@@ -9,10 +9,10 @@ import interactionPlugin from '@fullcalendar/interaction';
 import toastr from 'toastr';
 import { DateTime } from 'luxon';
 
-import { $, saveTasks, remove, serializeTasks, Signal } from './utils';
+import { $, saveTasks, remove, serializeTasks, Signal, ISerializedEvent } from './utils';
 
 
-function onImport(calendar) {
+function onImport(calendar: Calendar) {
     const fileInput = document.createElement('input');
 
     fileInput.type = 'file';
@@ -21,6 +21,10 @@ function onImport(calendar) {
     fileInput.click();
 
     fileInput.addEventListener('input', (e) => {
+        if (e.target == null) {
+            return;
+        }
+
         const file = e.target.files[0];
         const reader = new FileReader();
 
@@ -28,7 +32,7 @@ function onImport(calendar) {
 
         reader.onload = (evt) => {
             try {
-                const tasks = JSON.parse(evt.target.result) || [];
+                const tasks: ISerializedEvent[] = JSON.parse(evt.target.result) || [];
                 const oldTasks = calendar.getEvents();
 
                 // remove current tasks
@@ -39,7 +43,7 @@ function onImport(calendar) {
                 // add imported tasks
                 tasks.forEach((task) => {
                     calendar.addEvent(task);
-                })
+                });
 
                 toastr.success('Imported successfully');
             } catch {
@@ -57,10 +61,11 @@ function onImport(calendar) {
     });
 }
 
-export const selectedTasks = [];
+export const selectedTasks: string[] = [];
 
 export function initializeCalendar() {
     const calendarEl = $('#calendar');
+
     const $add = new Signal();
     const $edit = new Signal();
 
@@ -93,7 +98,7 @@ export function initializeCalendar() {
                     }
 
                     calendar.getEvents().forEach((event) => {
-                        if (selectedTasks.includes(event.title)) {
+                        if (selectedTasks.indexOf(event.title) !== -1) {
                             event.remove();
                         }
                     });
@@ -149,11 +154,11 @@ export function initializeCalendar() {
             const classes = data.event.classNames;
             const selectedCls = 'task-selected';
 
-            if (classes.includes(selectedCls)) {
-                data.event.setProp('classNames', classes.filter((cls) => cls !== selectedCls))
+            if (classes.indexOf(selectedCls) !== -1) {
+                data.event.setProp('classNames', classes.filter((cls) => cls !== selectedCls).toString())
                 remove(selectedTasks, data.event.title);
             } else {
-                data.event.setProp('classNames', classes.concat([selectedCls]));
+                data.event.setProp('classNames', classes.concat([selectedCls]).toString());
                 selectedTasks.push(data.event.title);
             }
         },
