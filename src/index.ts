@@ -17,12 +17,6 @@ function main() {
         calendar.addEvent(task);
     });
 
-    function renderTotalAmount() {
-        const span = $('#totalAmount');
-        span.innerText = calendar.getEvents().length;
-    }
-    renderTotalAmount();
-
     function clearModal() {
         $('#newTaskTitle').value = '';
         $('#newTaskPriority').value = 'priority-normal';

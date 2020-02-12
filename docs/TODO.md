@@ -1,13 +1,10 @@
 Main:
-- edit tasks (save changes to calendar)
+- task editing (save changes to calendar)
 - tasks global search
-- tasks amount stat (update on delete)
-- datetime picker
+- datetime picker for add/edit modal
 
 Optional:
 - hot keys
-- context menu
-- icons for export, import
-- multiple tasks selection
-- revert changes
-- deleted/completed tasks folders
+- task context menu
+- multiple tasks selection (for bulk deleting, dragging)
+- tasks statistics

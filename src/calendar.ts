@@ -82,7 +82,7 @@ export function initializeCalendar() {
             right: 'saveBtn prev,today,next',
         },
         footer: {
-            right: 'exportBtn importBtn',
+            left: 'exportBtn importBtn',
         },
         customButtons: {
             addBtn: {
@@ -156,10 +156,10 @@ export function initializeCalendar() {
             const selectedCls = 'task-selected';
 
             if (classes.indexOf(selectedCls) !== -1) {
-                data.event.setProp('classNames', classes.filter((cls) => cls !== selectedCls).toString())
+                data.event.setProp('classNames', classes.filter((cls) => cls !== selectedCls))
                 remove(selectedTasks, data.event.title);
             } else {
-                data.event.setProp('classNames', classes.concat([selectedCls]).toString());
+                data.event.setProp('classNames', classes.concat([selectedCls]));
                 selectedTasks.push(data.event.title);
             }
         },
