@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.html",
   "scripts": {
-    "start": "parcel index.html"
+    "start": "npx parcel index.html"
   },
   "author": "qqoen",
   "license": "MIT",
@@ -20,6 +20,7 @@
     "toastr": "^2.1.4"
   },
   "devDependencies": {
+    "parcel": "^1.12.4",
     "stylus": "^0.54.7",
     "typescript": "^3.7.5"
   }

@@ -1,8 +1,8 @@
 Main:
 - edit tasks (save changes to calendar)
-- return to current date btn
 - tasks global search
 - tasks amount stat (update on delete)
+- datetime picker
 
 Optional:
 - hot keys

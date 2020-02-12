@@ -75,10 +75,11 @@ export function initializeCalendar() {
         height: 'parent',
         editable: true,
         scrollTime: '00:00:00',
+        firstDay: 1, // week starts with monday
         header: {
             left: 'timeGridDay,timeGridWeek,dayGridMonth addBtn editBtn deleteBtn',
             center: 'title',
-            right: 'saveBtn prevYear,prev,next,nextYear',
+            right: 'saveBtn prev,today,next',
         },
         footer: {
             right: 'exportBtn importBtn',
